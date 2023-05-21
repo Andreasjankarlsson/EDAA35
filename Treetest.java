@@ -5,7 +5,7 @@ import java.util.*;
 import java.io.*;
 
 public class Treetest{
-    private static Comparator<E> comp;
+    private static Comparator<Integer> comp;
     public static void main(String[] args) throws IOException {
         test("ExponentialDistribution.txt", "TreeExponentialResult.txt", 1000);
         test("NormalDistribution.txt", "TreeNormalResult.txt", 1000);
@@ -13,8 +13,8 @@ public class Treetest{
     }
 
     public static void test(String inFile, String outFile, int N){
-        comp = (e1,e2) -> ((Comparable<E>)e1).compareTo(e2);
-        TreeMap<Double, Integer> map = new TreeMap<>(comp);
+        comp = (e1,e2) -> ((Comparable<Integer>)e1).compareTo(e2);
+        TreeMap<Double, Integer> map = new TreeMap<Double, Integer>(comp);
         Scanner scan = new Scanner(new File(inFile));
         int a = 0;
         PrintWriter writer = new PrintWriter(new FileWriter(outFile));
@@ -27,7 +27,7 @@ public class Treetest{
         scan.close();
         long endTime = System.nanoTime();
         long resultingTime = endTime - startTime;
-        writer.println(iterations + ", " + resultingTime);
+        writer.println(N + ", " + resultingTime);
         }
         writer.close();
     }

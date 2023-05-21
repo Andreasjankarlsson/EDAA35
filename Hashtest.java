@@ -25,7 +25,7 @@ public class Hashtest {
 
         long endTime = System.nanoTime();
         long resultingTime = endTime - startTime;
-        writer.println(iterations + ", " + resultingTime);
+        writer.println(N + ", " + resultingTime);
     }
 
 }
