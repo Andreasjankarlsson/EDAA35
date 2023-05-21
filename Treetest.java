@@ -5,30 +5,41 @@ import java.util.*;
 import java.io.*;
 
 public class Treetest{
-    private static Comparator<Integer> comp;
+    
     public static void main(String[] args) throws IOException {
-        test("ExponentialDistribution.txt", "TreeExponentialResult.txt", 1000);
-        test("NormalDistribution.txt", "TreeNormalResult.txt", 1000);
-        test("UniformDistribution.txt", "TreeUniformResult.txt", 1000);
+        treeTime("ExponentialDistribution.txt", "TreeExponentialResult.txt", 1000);
+        treeTime("NormalDistribution.txt", "TreeNormalResult.txt", 1000);
+        treeTime("UniformDistribution.txt", "TreeUniformResult.txt", 1000);
     }
 
-    public static void test(String inFile, String outFile, int N){
-        comp = (e1,e2) -> ((Comparable<Integer>)e1).compareTo(e2);
-        TreeMap<Double, Integer> map = new TreeMap<Double, Integer>(comp);
-        Scanner scan = new Scanner(new File(inFile));
-        int a = 0;
-        PrintWriter writer = new PrintWriter(new FileWriter(outFile));
-        for(int i = 0; i < N; i++){
-        long startTime = System.nanoTime();
-        while(scan.hasNextLine()){
-            map.put(Double.parseDouble(scan.nextLine(), i));
-            i+=1;
-        }
-        scan.close();
-        long endTime = System.nanoTime();
-        long resultingTime = endTime - startTime;
-        writer.println(N + ", " + resultingTime);
-        }
-        writer.close();
+    public static void treeTime(String inFile, String outFile, int N) throws IOException{
+       TreeMap<String, Double> map = new TreeMap<>();
+       Scanner scan = new Scanner(new File(inFile));
+       int i = 0;
+       while(scan.hasNextLine()){
+        map.put(String.valueOf(i), Double.parseDouble(scan.nextLine()));
+        i++;
+       }
+       scan.close();
+
+       PrintWriter writer = new PrintWriter(new FileWriter(outFile));
+        writer.println("Sorteringstid (ns)");
+
+        for(int j= 1; j<=N ; j++){
+            TreeMap<String, Double> sortedTreeMap = new TreeMap<>(new Comparator<String>() {
+                @Override
+                public int compare(String key1, String key2) {
+                    Double value1 = map.get(key1);
+                    Double value2 = map.get(key2);
+                    return Double.compare(value1, value2);
+                }
+            });
+            Long startTime = System.nanoTime();
+            sortedTreeMap.putAll(map);
+            Long endTime = System.nanoTime();
+            Long resultingTime = endTime - startTime;
+            writer.println(j + "," + resultingTime);
+        }   
+    writer.close();
     }
 }
