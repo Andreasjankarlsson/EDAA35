@@ -1,48 +1,39 @@
 import java.io.*;
-
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
 
 public class PrioHeap{
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         tester("ExponentialDistribution.txt", "HeapExponentialResult.txt", 30000);
         tester("NormalDistribution.txt", "HeapNormalResult.txt", 30000);
         tester("UniformDistribution.txt", "HeapUniformResult.txt", 30000);
     }
-    public static void tester(String inFile, String outFile, int iterations){
+    public static void tester(String inFile, String outFile, int iterations) throws IOException{
         
         PriorityQueue<Double> queue = new PriorityQueue<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(inFile))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                double number = Double.parseDouble(line.trim());
-                queue.add(number);
+        Scanner scan = new Scanner(new File(inFile));
+        
+        PrintWriter writer = new PrintWriter(new FileWriter(outFile));
+        writer.println("Sorteringstid (ns)");
+        for(int j = 1; j<= iterations; j+=200){
+            int i = 0;
+            LinkedList<Double> list = new LinkedList<>();
+            while(scan.hasNextLine()){
+                if(i > j){
+                    break;
+                }
+                list.add(Double.parseDouble(scan.nextLine()));
+                i++;
             }
-        } catch (IOException e) {
-            System.out.println("Fel läsning av fil: " + inFile);
-            return;
+            Long startTime = System.nanoTime();
+            queue.addAll(list);
+            Long endTime = System.nanoTime();
+            Long resultTime = endTime - startTime;
+            writer.println("Iteration: " + j + ", Time:" + resultTime);
         }
-        try(PrintWriter writer = new PrintWriter(new FileWriter(outFile))){
-            Scanner scan = new Scanner(new File(inFile));
-            writer.println("Iteration: , Time(ns)");
-            int temp = iterations;
-            while(scan.hasNext() && iterations > 0){
-                int current = temp-iterations;
-                long startTime = System.nanoTime();
-                queue.offer(Double.parseDouble(scan.nextLine()));
-                long endTime = System.nanoTime();
-                long time = endTime - startTime;
-                iterations--;
-                writer.println(current + ", " + time);
-            }
-            writer.close();
-
-            
-        }catch(IOException e){
-            System.out.println("Fel vid skrivning till fil: " + outFile);
-            return;
-        }
+        writer.close();
     }
 
 }
