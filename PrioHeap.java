@@ -16,7 +16,7 @@ public class PrioHeap{
         Scanner scan = new Scanner(new File(inFile));
         
         PrintWriter writer = new PrintWriter(new FileWriter(outFile));
-        writer.println("Sorteringstid (ns)");
+        writer.println("Iteration, Sorteringstid (ns)");
         for(int j = 1; j<= iterations; j+=200){
             int i = 0;
             LinkedList<Double> list = new LinkedList<>();
@@ -31,7 +31,7 @@ public class PrioHeap{
             queue.addAll(list);
             Long endTime = System.nanoTime();
             Long resultTime = endTime - startTime;
-            writer.println("Iteration: " + j + ", Time:" + resultTime);
+            writer.println(j + ", " + resultTime);
         }
         writer.close();
     }

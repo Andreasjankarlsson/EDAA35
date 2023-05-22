@@ -14,7 +14,7 @@ public class ArList {
         }
         scan.close();
         PrintWriter writer = new PrintWriter(new FileWriter(outFile));
-        writer.println("Sorteringstid (ns)");
+        writer.println("Iteration, Sorteringstid (ns)");
 
         for(int i = 0; i< N; i+=200){
             List<Double> copy = new ArrayList<>();
@@ -26,7 +26,7 @@ public class ArList {
             Collections.sort(copy);
             long end = System.nanoTime();
             long result = end - start;
-            writer.println(i + "," + result);
+            writer.println(i + ", " + result);
             System.out.println(i);
         }
         writer.close();
