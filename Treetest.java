@@ -13,29 +13,30 @@ public class Treetest{
     }   
 
     public static void treeTime(String inFile, String outFile, int N) throws IOException{
+        /* 
        TreeMap<String, Double> map = new TreeMap<>();
        Scanner scan = new Scanner(new File(inFile));
        int i = 0;
-       /*
+       
        while(scan.hasNextLine()){
         map.put(String.valueOf(i), Double.parseDouble(scan.nextLine()));
         i++;
        }
-       */
-      //Linked list for timecomplexity(0);
-        LinkedList<Double> numbers = new LinkedList<Double>();
-        while(scan.hasNextLine()){
-            numbers.add(Double.parseDouble(scan.nextLine()));
-        }
-        scan.close();
-
+        */
         PrintWriter writer = new PrintWriter(new FileWriter(outFile));
         writer.println("Sorteringstid (ns)");
 
         for(int j= 1; j<=N ; j+=200){
-            ArrayList<Double> iterationNumbers = new ArrayList<Double>();
-            for(int k =0; k<=j; k++){
-                iterationNumbers.add(numbers.get(k));
+            TreeMap<String, Double> map = new TreeMap<>();
+            Scanner scan = new Scanner(new File(inFile));
+            int i = 0;
+            
+            while(scan.hasNextLine()){
+                if(i>j){
+                    break;
+                 }
+             map.put(String.valueOf(i), Double.parseDouble(scan.nextLine()));
+             i++;
             }
 
             TreeMap<String, Double> sortedTreeMap = new TreeMap<>(new Comparator<String>() {
