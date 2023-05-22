@@ -1,4 +1,4 @@
-Sorteringstid (ns)
+Iteration, Sorteringstid
 1,5333
 201,192875
 401,390916

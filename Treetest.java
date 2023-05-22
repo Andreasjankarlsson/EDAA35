@@ -7,7 +7,7 @@ import java.io.*;
 public class Treetest{
     
     public static void main(String[] args) throws IOException {
-        treeTime("ExponentialDistribution.txt", "./TreeResultat/LinkedExponentialResult222.txt", 30000);
+        treeTime("ExponentialDistribution.txt", "./TreeResultat/TreeExponentialResul.txt", 30000);
         treeTime("NormalDistribution.txt", "./TreeResultat/TreeNormalResult.txt", 30000);
         treeTime("UniformDistribution.txt", "./TreeResultat/TreeUniformResult.txt", 30000);
     }   
