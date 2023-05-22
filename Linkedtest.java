@@ -18,7 +18,7 @@ public class Linkedtest{
         scan.close();
 
         PrintWriter writer = new PrintWriter(new FileWriter(outFile));
-        writer.println("Sorteringstid (ns)");
+        writer.println("Iteration, Sorteringstid (ns)");
 
         for(int i = 1; i <= N; i+=200){
             LinkedList<Double> copy = new LinkedList<>();

@@ -24,7 +24,7 @@ public class Treetest{
        }
         */
         PrintWriter writer = new PrintWriter(new FileWriter(outFile));
-        writer.println("Sorteringstid (ns)");
+        writer.println("Iteration, Sorteringstid (ns)");
 
         for(int j= 1; j<=N ; j+=200){
             TreeMap<String, Double> map = new TreeMap<>();
@@ -52,7 +52,7 @@ public class Treetest{
             sortedTreeMap.putAll(map);
             Long endTime = System.nanoTime();
             Long resultingTime = endTime - startTime;
-            writer.println(j + "," + resultingTime);
+            writer.println(j + ", " + resultingTime);
             System.out.println(j);
         }   
     writer.close();
