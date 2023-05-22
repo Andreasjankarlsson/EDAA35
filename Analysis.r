@@ -51,11 +51,11 @@ plot3Graphs <- function(name,exp,norm,uni){
 
     data <- data.frame(xValues,meanRow)
     colnames(data) <- c("Iteration", "Sorteringstid")
-    #print(data)
+    call 
 
     model <- lm(Sorteringstid ~ Iteration*log(Iteration), data=data)
-    #print(name)
-    #print(model)
+    print(name)
+    print(model)
     x_pred <- seq(min(data$Iteration), max(data$Iteration))
     y_pred <- predict(model, newdata = data.frame(Iteration = x_pred))
     lines(x_pred, y_pred, col = "green")
@@ -70,6 +70,7 @@ plot3Graphs("./TreeResultat/TreeMap.pdf",data_TreeExp,data_TreeNorm,data_TreeUni
 plot3Graphs("./PrioResultat/PrioQueue.pdf",data_PrioExp,data_PrioNorm,data_PrioUniform)
 
 
-#ArrayList -1593093.16
-#LinkedList - 1449486.62
-#Treemap - 268782777
+#ArrayList 895.94
+#LinkedList - 707.57 
+#Treemap - -15743 
+#Priority - 68.86
