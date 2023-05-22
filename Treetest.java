@@ -38,7 +38,7 @@ public class Treetest{
             sortedTreeMap.putAll(map);
             Long endTime = System.nanoTime();
             Long resultingTime = endTime - startTime;
-            writer.println(j + "," + resultingTime);
+            writer.println("Iteration"  + j + ", Time: " + resultingTime);
         }   
     writer.close();
     }
