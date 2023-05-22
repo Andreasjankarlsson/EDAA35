@@ -14,6 +14,10 @@ data_TreeExp <- "./TreeResultat/TreeExponentialResult.txt"
 data_TreeNorm <-"./TreeResultat/TreeNormalResult.txt"
 data_TreeUniform <- "./TreeResultat/TreeUniformResult.txt"
 
+data_PrioExp <- "./PrioResultat/HeapExponentialResult.txt"
+data_PrioNorm <-"./PrioResultat/HeapNormalResult.txt"
+data_PrioUniform <- "./PrioResultat/HeapUniformResult.txt"
+
 
 plotresult <- function(file, start = 1) {
    data <- read.csv(file)
@@ -50,8 +54,8 @@ plot3Graphs <- function(name,exp,norm,uni){
     #print(data)
 
     model <- lm(Sorteringstid ~ Iteration*log(Iteration), data=data)
-    print(name)
-    print(model)
+    #print(name)
+    #print(model)
     x_pred <- seq(min(data$Iteration), max(data$Iteration))
     y_pred <- predict(model, newdata = data.frame(Iteration = x_pred))
     lines(x_pred, y_pred, col = "green")
@@ -63,4 +67,9 @@ plot3Graphs <- function(name,exp,norm,uni){
 plot3Graphs("./ArrayListResultat/ArrayList.pdf",data_ArrayExp,data_ArrayNorm,data_ArrayUniform)
 plot3Graphs("./LinkedResultat/LinkedList.pdf",data_LinkedExp,data_LinkedNorm,data_LinkedUniform)
 plot3Graphs("./TreeResultat/TreeMap.pdf",data_TreeExp,data_TreeNorm,data_TreeUniform)
+plot3Graphs("./PrioResultat/PrioQueue.pdf",data_PrioExp,data_PrioNorm,data_PrioUniform)
 
+
+#ArrayList -1593093.16
+#LinkedList - 1449486.62
+#Treemap - 268782777
