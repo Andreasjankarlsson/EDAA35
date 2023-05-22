@@ -32,41 +32,33 @@ getYValues <- function(file, start=1){
     return(data)
 }
 
-plot3GraphsNlogN <- function(name,exp,norm,uni){
+plot3Graphs <- function(name,exp,norm,uni){
     pdf(name)
     plot(getXValues(exp), getYValues(exp), type = "l", xlab = "Antal element", ylab = "Tidsåtgång [ns]")
     lines(getXValues(norm), getYValues(norm), col = "blue")
     lines(getXValues(uni), getYValues(uni), col = "red")
 
-    data <- read.csv(exp)[-1,]
+    dataExp <- read.csv(exp)[-1,]$Sorteringstid
+    dataNorm <- read.csv(norm)[-1,]$Sorteringstid
+    dataUni <- read.csv(uni)[-1,]$Sorteringstid
+    combinedData <- data.frame(dataExp,dataNorm,dataUni)
+    meanRow <- rowMeans(combinedData)
+    xValues <- read.csv(exp)[-1,]$Iteration
+
+    data <- data.frame(xValues,meanRow)
+    colnames(data) <- c("Iteration", "Sorteringstid")
     print(data)
+
     model <- lm(Sorteringstid ~ Iteration*log(Iteration), data=data)
     x_pred <- seq(min(data$Iteration), max(data$Iteration))
     y_pred <- predict(model, newdata = data.frame(Iteration = x_pred))
     lines(x_pred, y_pred, col = "green")
-
-    legend("topright", legend = c("Exponential-fördelning", "Normalfördelning", "exponentialfördelning","tidskomplexitet"), col = c("black", "blue", "red","green"), lty = 1)
-    dev.off()
-}
-plot3GraphslogN <- function(name,exp,norm,uni){
-    pdf(name)
-    plot(getXValues(exp), getYValues(exp), type = "l", xlab = "Antal element", ylab = "Tidsåtgång [ns]")
-    lines(getXValues(norm), getYValues(norm), col = "blue")
-    lines(getXValues(uni), getYValues(uni), col = "red")
-
-    data <- read.csv(exp)[-1,]
-    print(data)
-    model <- lm(Sorteringstid ~ log(Iteration), data=data)
-    x_pred <- seq(min(data$Iteration), max(data$Iteration))
-    y_pred <- predict(model, newdata = data.frame(Iteration = x_pred))
-    lines(x_pred, y_pred, col = "green")
-
     legend("topright", legend = c("Exponential-fördelning", "Normalfördelning", "exponentialfördelning","tidskomplexitet"), col = c("black", "blue", "red","green"), lty = 1)
     dev.off()
 }
 
 
 plot3Graphs("./ArrayListResultat/ArrayList.pdf",data_ArrayExp,data_ArrayNorm,data_ArrayUniform)
-plot3Graphs("./LinkedResultat/LinkedList.pdf",data_LinkedExp,data_LinkedNorm,data_LinkedUniform)
-plot3GraphslogN("./TreeResultat/TreeMap.pdf",data_TreeExp,data_TreeNorm,data_TreeUniform)
+#plot3Graphs("./LinkedResultat/LinkedList.pdf",data_LinkedExp,data_LinkedNorm,data_LinkedUniform)
+#plot3Graphs("./TreeResultat/TreeMap.pdf",data_TreeExp,data_TreeNorm,data_TreeUniform)
 
