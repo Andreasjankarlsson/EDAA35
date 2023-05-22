@@ -47,9 +47,11 @@ plot3Graphs <- function(name,exp,norm,uni){
 
     data <- data.frame(xValues,meanRow)
     colnames(data) <- c("Iteration", "Sorteringstid")
-    print(data)
+    #print(data)
 
     model <- lm(Sorteringstid ~ Iteration*log(Iteration), data=data)
+    print(name)
+    print(model)
     x_pred <- seq(min(data$Iteration), max(data$Iteration))
     y_pred <- predict(model, newdata = data.frame(Iteration = x_pred))
     lines(x_pred, y_pred, col = "green")
