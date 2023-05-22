@@ -1,7 +1,9 @@
 import java.io.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
+
 import java.util.PriorityQueue;
 import java.util.Scanner;
+
 
 
 public class PrioHeap{
@@ -19,19 +21,19 @@ public class PrioHeap{
         writer.println("Iteration, Sorteringstid (ns)");
         for(int j = 1; j<= iterations; j+=200){
             int i = 0;
-            LinkedList<Double> list = new LinkedList<>();
+            ArrayList<Double> list = new ArrayList<>();
             while(scan.hasNextLine()){
-                if(i > j){
-                    break;
-                }
                 list.add(Double.parseDouble(scan.nextLine()));
-                i++;
             }
             Long startTime = System.nanoTime();
-            queue.addAll(list);
+            while(i < j){
+                queue.add(list.get(i));
+                i++;
+            }
             Long endTime = System.nanoTime();
             Long resultTime = endTime - startTime;
             writer.println(j + ", " + resultTime);
+            
         }
         writer.close();
     }
