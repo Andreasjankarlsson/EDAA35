@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class PrioHeap{
     public static void main(String[] args) {
-        tester("ExponentialDistribution.txt", "HeapExponentialResult.txt", 1000);
-        tester("NormalDistribution.txt", "HeapNormalResult.txt", 1000);
-        tester("UniformDistribution.txt", "HeapUniformResult.txt", 1000);
+        tester("ExponentialDistribution.txt", "HeapExponentialResult.txt", 30000);
+        tester("NormalDistribution.txt", "HeapNormalResult.txt", 30000);
+        tester("UniformDistribution.txt", "HeapUniformResult.txt", 30000);
     }
     public static void tester(String inFile, String outFile, int iterations){
         
