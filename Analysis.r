@@ -59,6 +59,6 @@ plot3Graphs <- function(name,exp,norm,uni){
 
 
 plot3Graphs("./ArrayListResultat/ArrayList.pdf",data_ArrayExp,data_ArrayNorm,data_ArrayUniform)
-#plot3Graphs("./LinkedResultat/LinkedList.pdf",data_LinkedExp,data_LinkedNorm,data_LinkedUniform)
-#plot3Graphs("./TreeResultat/TreeMap.pdf",data_TreeExp,data_TreeNorm,data_TreeUniform)
+plot3Graphs("./LinkedResultat/LinkedList.pdf",data_LinkedExp,data_LinkedNorm,data_LinkedUniform)
+plot3Graphs("./TreeResultat/TreeMap.pdf",data_TreeExp,data_TreeNorm,data_TreeUniform)
 
