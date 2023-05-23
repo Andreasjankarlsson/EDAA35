@@ -51,26 +51,35 @@ plot3Graphs <- function(name,exp,norm,uni){
 
     data <- data.frame(xValues,meanRow)
     colnames(data) <- c("Iteration", "Sorteringstid")
-    call 
 
     model <- lm(Sorteringstid ~ Iteration*log(Iteration), data=data)
-    print(name)
-    print(model)
+    #print(name) 
+    #print(model)
     x_pred <- seq(min(data$Iteration), max(data$Iteration))
     y_pred <- predict(model, newdata = data.frame(Iteration = x_pred))
     lines(x_pred, y_pred, col = "green")
     legend("topright", legend = c("Exponential-fördelning", "Normalfördelning", "exponentialfördelning","tidskomplexitet"), col = c("black", "blue", "red","green"), lty = 1)
     dev.off()
+    
+    returnFrame <- data.frame(x_pred,y_pred)
+    return (returnFrame)
+}
+
+plot4Graphs <- function(name,exp,norm,uni,prio){
+    pdf(name)
+    plot(exp$x_pred, exp$y_pred, type = "l", xlab = "Antal element", ylab = "Tidsåtgång [ns]")
+    lines(norm$x_pred, norm$y_pred, col = "blue")
+    lines(uni$x_pred, uni$y_pred, col = "red")
+
+    lines(prio$x_pred, prio$y_pred, col = "green")
+    legend("topright", legend = c("ArrayList", "LinkedList", "TreeMap","PriorityQueue"), col = c("black", "blue", "red","green"), lty = 1)
+    dev.off()
+
 }
 
 
-plot3Graphs("./ArrayListResultat/ArrayList.pdf",data_ArrayExp,data_ArrayNorm,data_ArrayUniform)
-plot3Graphs("./LinkedResultat/LinkedList.pdf",data_LinkedExp,data_LinkedNorm,data_LinkedUniform)
-plot3Graphs("./TreeResultat/TreeMap.pdf",data_TreeExp,data_TreeNorm,data_TreeUniform)
-plot3Graphs("./PrioResultat/PrioQueue.pdf",data_PrioExp,data_PrioNorm,data_PrioUniform)
-
-
-#ArrayList 895.94
-#LinkedList - 707.57 
-#Treemap - -15743 
-#Priority - 68.86
+array <- plot3Graphs("./ArrayListResultat/ArrayList.pdf",data_ArrayExp,data_ArrayNorm,data_ArrayUniform)
+linked <- plot3Graphs("./LinkedResultat/LinkedList.pdf",data_LinkedExp,data_LinkedNorm,data_LinkedUniform)
+tree <- plot3Graphs("./TreeResultat/TreeMap.pdf",data_TreeExp,data_TreeNorm,data_TreeUniform)
+prio <- plot3Graphs("./PrioResultat/PrioQueue.pdf",data_PrioExp,data_PrioNorm,data_PrioUniform)
+plot4Graphs("./CombinedResult/4graphs.pdf", array,linked,tree,prio)
